@@ -1,0 +1,99 @@
+
+*{
+     margin: 0px;
+     padding: 0px;
+     font-family: cursive;
+     box-sizing: border-box;
+}
+
+body{
+     height: 100vh;
+     width: 100vw;
+     background-color: blue;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: row;
+}
+
+#timerbox{
+     border:none;
+     height: 300px;
+     width: 500px;
+     background-color: white;
+     padding: 20px;
+     text-align: center;
+     border-radius: 60px 120px 60px 120px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+}
+
+button{
+     cursor: pointer;
+     padding: 10px;
+     outline: hidden;
+     border: none;
+     border-radius: 5px;
+     color:white;
+}
+
+#start{
+     background-color: green;
+}
+
+#stop{
+     background-color: blue;
+}
+
+#reset{
+     background-color:yellow;
+}
+
+#savelog{
+   background-color: red;
+}
+
+#timerbox > div
+{
+    margin:20px;
+}
+
+#SideLog{
+
+     height:600px;
+     width: 320px;
+     border:2px solid black;
+     padding: 20px;
+     position: absolute;
+     right: 40px;
+     top:20px;
+     background-color: #ffffff;
+     border:none;
+     border-radius: 20px;
+     display: none;
+     overflow-y: scroll;     
+}
+
+li{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     width: 200px;
+     margin: 10px;
+
+}
+
+li span{
+      display: block;
+}
+
+i{
+  cursor: pointer;
+}
+
+.statement{
+      display: flex;
+      justify-content: space-between;
+}

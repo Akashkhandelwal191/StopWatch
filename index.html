@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StopWatch</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="timerbox">
+      <h1>StopWatch</h1>
+      <h3 id="timer">00:00:00:00</h3>
+      <div>
+        <button id="start" onclick="start()">Start</button>
+        <button id="stop" onclick="stop()">Stop</button>
+        <button id="reset" onclick="reset()">Reset</button>
+        <button id="savelog" onclick="savelog()">SaveLog</button>
+      </div>
+    </div>
+
+    <div id="SideLog">
+      <h1>Time Log</h1>
+    </div>
+
+    <script>
+      let IsStop = true;
+      let status = false;
+      let sec = 0,
+        min = 0,
+        hr = 0,
+        count = 0;
+      const timer = document.getElementById("timer");
+      const uniqueEntries = new Set();
+      const SideLog = document.getElementById("SideLog");
+      const obj = [];
+
+      const start = () => {
+        if (IsStop == true) {
+          IsStop = false;
+          status = true;
+          timercall();
+        }
+      };
+
+      const savelog = () => {
+        if (status == true) {
+          var str = hr + ":" + min + ":" + sec + ":" + count;
+          obj.push(str);
+          displaylog();
+        }
+      };
+
+      const GenerateRandomColor = ()=>{
+     
+        let randomColor = Math.floor(Math.random()*16777215).toString(16);
+        randomColor = "#" + randomColor;
+ 
+        return randomColor;
+      }
+
+      const displaylog = () => {
+        SideLog.style.display = "block";
+        let statement = "";
+        statement += `<div class="statement"> <h1>Time Log</h1>  <button style="background-color:red" onclick="ClearAllLog()">Clear All Log</button></div>`;
+        obj.forEach(function (element, id) {
+
+          statement += `<li style="background-color:${GenerateRandomColor()}"><span>${element}</span><span onclick="deleteInfo(${id})"><i class="fa-solid fa-square-xmark"></i><span></li>`;
+        });
+
+        SideLog.innerHTML = statement;
+
+        if (obj.length == 0) {
+          SideLog.style.display = "none";
+        }
+      };
+
+      const timercall = () => {
+        if (IsStop == false) {
+          count++;
+          sec = parseInt(sec);
+          min = parseInt(min);
+          hr = parseInt(hr);
+          count = parseInt(count);
+
+          if (sec < 10) {
+            sec = "0" + sec;
+          }
+          if (min < 10) {
+            min = "0" + min;
+          }
+          if (hr < 10) {
+            hr = "0" + hr;
+          }
+          if (count < 10) {
+            count = "0" + count;
+          }
+
+          if (count == 100) {
+            count = 0;
+            sec++;
+          }
+
+          if (sec == 60) {
+            sec = 0;
+            min++;
+          }
+
+          if (min == 60) {
+            min = 0;
+            hr++;
+          }
+
+          timer.innerHTML = hr + ":" + min + ":" + sec + ":" + count;
+          setTimeout("timercall()", 10);
+        }
+      };
+
+      const stop = () => {
+        IsStop = true;
+        status = false;
+      };
+
+      const reset = () => {
+        IsStop = true;
+        status = false;
+        sec = 0;
+        min = 0;
+        hr = 0;
+        count = 0;
+
+        timer.innerHTML = "00:00:00:00";
+      };
+
+      const ClearAllLog = ()=>{
+        obj.splice(0,obj.length);
+        displaylog();
+      }
+
+      const deleteInfo = (id) => {
+        obj.splice(id, 1);
+        console.log(obj);
+        displaylog();
+      };
+
+    </script>
+  </body>
+</html>
